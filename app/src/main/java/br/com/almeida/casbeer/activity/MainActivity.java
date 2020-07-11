@@ -1,8 +1,10 @@
-package br.com.almeida.casbeer;
+package br.com.almeida.casbeer.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import br.com.almeida.casbeer.R;
 
 public class MainActivity extends AppCompatActivity {
 
