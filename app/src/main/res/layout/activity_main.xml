@@ -7,9 +7,13 @@
     android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
-    <include layout="@layout/toolbar" />
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerBeers"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>
