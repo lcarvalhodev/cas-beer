@@ -1,7 +1,9 @@
 package br.com.almeida.casbeer.adapter;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,8 @@ import java.util.List;
 import br.com.almeida.casbeer.R;
 import br.com.almeida.casbeer.activity.BeerDetailsActivity;
 import br.com.almeida.casbeer.activity.MainActivity;
+import br.com.almeida.casbeer.helper.BeerDAO;
+import br.com.almeida.casbeer.helper.DBHelper;
 import br.com.almeida.casbeer.model.Beer;
 
 import static android.content.ContentValues.TAG;
@@ -56,7 +60,11 @@ public class AdapterBeer extends RecyclerView.Adapter<AdapterBeer.MyViewHolder> 
         holder.image_fav_beer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("RecyclerViewTest", "onClick: " + "Aaaaaa");
+
+                BeerDAO beerDAO = new BeerDAO(context);
+                beerDAO.insert(beer);
+
+                holder.image_fav_beer.setBackgroundResource(R.drawable.ic_star_yellow_24);
             }
         });
 

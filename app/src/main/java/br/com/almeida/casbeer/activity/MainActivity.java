@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void recoveryBeers() {
 
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             linearLayoutNoInternet.setVisibility(View.GONE);
             BeerService beerService = retrofit.create(BeerService.class);
             Call<List<Beer>> call = beerService.recoveryBeersService();
@@ -135,9 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-        }
-
-        else{
+        } else {
             linearLayoutNoInternet.setVisibility(View.VISIBLE);
             linearLayoutNoResults.setVisibility(View.GONE);
             recyclerBeers.setVisibility(View.GONE);
@@ -177,8 +176,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-        }
-        else{
+        } else {
             linearLayoutNoInternet.setVisibility(View.VISIBLE);
             linearLayoutNoResults.setVisibility(View.GONE);
             recyclerBeers.setVisibility(View.GONE);
@@ -186,7 +184,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void configRecyclerView() {
-        Log.d("RecyclerViewTest", "configRecyclerView: " + "aqui123");
         adapterBeer = new AdapterBeer(beers, this);
         recyclerBeers.setHasFixedSize(true);
         recyclerBeers.setLayoutManager(new LinearLayoutManager(this));
@@ -210,7 +207,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_favs:
-                Log.i("infoStar", "infoStar");
+                Intent intent = new Intent(getApplicationContext(), FavoriteBeersActivity.class);
+                startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
