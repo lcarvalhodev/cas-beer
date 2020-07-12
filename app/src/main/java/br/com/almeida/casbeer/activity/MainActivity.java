@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,13 +18,13 @@ import android.widget.AdapterView;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.almeida.casbeer.R;
 import br.com.almeida.casbeer.adapter.AdapterBeer;
 import br.com.almeida.casbeer.api.BeerService;
+import br.com.almeida.casbeer.helper.Permission;
 import br.com.almeida.casbeer.helper.RetrofitConfig;
 import br.com.almeida.casbeer.listener.RecyclerItemClickListener;
 import br.com.almeida.casbeer.model.Beer;
@@ -33,6 +34,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
+
+    //Permissions
+    private String[] permissions = new String[]{
+            Manifest.permission.INTERNET
+    };
 
     //Widgets
     private RecyclerView recyclerBeers;
@@ -57,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         //init configs
         retrofit = RetrofitConfig.getRetrofit();
 
+        //validate permissions
+        Permission.validatePermission(permissions, this, 1);
 
         //Config Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -145,31 +153,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerBeers.setLayoutManager(new LinearLayoutManager(this));
         recyclerBeers.setAdapter(adapterBeer);
 
-        //config click event
-        recyclerBeers.addOnItemTouchListener(new RecyclerItemClickListener(
-                this, recyclerBeers, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-
-                Beer beer = beers.get(position);
-
-                Intent intent = new Intent(MainActivity.this, BeerDetailsActivity.class);
-                intent.putExtra("beer", beer);
-
-                startActivity(intent);
-            }
-
-            @Override
-            public void onLongItemClick(View view, int position) {
-
-            }
-
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-            }
-        }
-        ));
     }
 
     @Override

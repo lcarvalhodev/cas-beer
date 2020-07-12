@@ -1,6 +1,7 @@
 package br.com.almeida.casbeer.listener;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -52,6 +53,7 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
                 View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
                 if (child != null && mListener != null) {
                     mListener.onLongItemClick(child, recyclerView.getChildAdapterPosition(child));
+                    Log.d("RecyclerViewTest", "onLongPress: " + recyclerView.getChildAdapterPosition(child));
                 }
             }
         });

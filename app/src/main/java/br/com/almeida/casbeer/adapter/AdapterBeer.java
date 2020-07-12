@@ -1,11 +1,14 @@
 package br.com.almeida.casbeer.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,7 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.almeida.casbeer.R;
+import br.com.almeida.casbeer.activity.BeerDetailsActivity;
+import br.com.almeida.casbeer.activity.MainActivity;
 import br.com.almeida.casbeer.model.Beer;
+
+import static android.content.ContentValues.TAG;
 
 public class AdapterBeer extends RecyclerView.Adapter<AdapterBeer.MyViewHolder> {
 
@@ -46,6 +53,33 @@ public class AdapterBeer extends RecyclerView.Adapter<AdapterBeer.MyViewHolder> 
         String url_image = beer.getImage_url();
         Picasso.get().load(url_image).resize(200, 200).centerInside().into(holder.image_url);
 
+        holder.image_fav_beer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("RecyclerViewTest", "onClick: " + "Aaaaaa");
+            }
+        });
+
+        holder.image_url.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, BeerDetailsActivity.class);
+                intent.putExtra("beer", beer);
+
+                context.startActivity(intent);
+            }
+        });
+
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, BeerDetailsActivity.class);
+                intent.putExtra("beer", beer);
+
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -53,22 +87,24 @@ public class AdapterBeer extends RecyclerView.Adapter<AdapterBeer.MyViewHolder> 
         return beers.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView name;
         TextView tag_line;
         ImageView image_url;
         Button image_fav_beer;
+        LinearLayout linearLayout;
 
-        public MyViewHolder(View itemView){
+        public MyViewHolder(View itemView) {
             super(itemView);
 
             name = itemView.findViewById(R.id.textNameBeer);
             tag_line = itemView.findViewById(R.id.textTaglineBeer);
             image_url = itemView.findViewById(R.id.imageBeer);
             image_fav_beer = itemView.findViewById(R.id.btnFavoriteBeer);
-        }
+            linearLayout = itemView.findViewById(R.id.linearLayoutVerticalClickId);
 
+        }
 
     }
 
