@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +42,9 @@ public class AdapterBeer extends RecyclerView.Adapter<AdapterBeer.MyViewHolder> 
         Beer beer = beers.get(position);
         holder.name.setText(beer.getName());
         holder.tag_line.setText(beer.getTagline());
+
+        String url_image = beer.getImage_url();
+        Picasso.get().load(url_image).resize(200, 200).centerInside().into(holder.image_url);
 
     }
 
