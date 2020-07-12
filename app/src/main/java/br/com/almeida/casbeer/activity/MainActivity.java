@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     //Widgets
     private RecyclerView recyclerBeers;
     private MaterialSearchView searchView;
+    private LinearLayout linearLayoutNoResults;
 
     private List<Beer> beers = new ArrayList<>();
     private AdapterBeer adapterBeer;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         //Init components
         recyclerBeers = findViewById(R.id.recyclerBeers);
         searchView = findViewById(R.id.searchView);
+        linearLayoutNoResults = findViewById(R.id.linearLayoutNoResultsId);
 
         //init configs
         retrofit = RetrofitConfig.getRetrofit();
@@ -136,7 +139,16 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Beer>> call, Response<List<Beer>> response) {
                 if (response.isSuccessful()) {
                     beers = response.body();
-                    configRecyclerView();
+                    if (beers.size() > 0) {
+                        linearLayoutNoResults.setVisibility(View.GONE);
+                        recyclerBeers.setVisibility(View.VISIBLE);
+                        configRecyclerView();
+                    }
+                    else{
+                        Log.d("RecyclerViewTest", "configRecyclerView: " + "aqui1222333");
+                        linearLayoutNoResults.setVisibility(View.VISIBLE);
+                        recyclerBeers.setVisibility(View.GONE);
+                    }
                 }
             }
 
@@ -148,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void configRecyclerView() {
+        Log.d("RecyclerViewTest", "configRecyclerView: " + "aqui123");
         adapterBeer = new AdapterBeer(beers, this);
         recyclerBeers.setHasFixedSize(true);
         recyclerBeers.setLayoutManager(new LinearLayoutManager(this));
