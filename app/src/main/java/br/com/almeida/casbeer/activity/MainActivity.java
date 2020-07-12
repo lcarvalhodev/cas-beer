@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerBeers;
     private MaterialSearchView searchView;
     private LinearLayout linearLayoutNoResults;
+    private LinearLayout linearLayoutNoInternet;
 
     private List<Beer> beers = new ArrayList<>();
     private AdapterBeer adapterBeer;
@@ -62,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerBeers = findViewById(R.id.recyclerBeers);
         searchView = findViewById(R.id.searchView);
         linearLayoutNoResults = findViewById(R.id.linearLayoutNoResultsId);
+        linearLayoutNoInternet = findViewById(R.id.linearLayoutNoInternetId);
 
         //init configs
         retrofit = RetrofitConfig.getRetrofit();
@@ -108,55 +113,76 @@ public class MainActivity extends AppCompatActivity {
 
     private void recoveryBeers() {
 
-        BeerService beerService = retrofit.create(BeerService.class);
-        Call<List<Beer>> call = beerService.recoveryBeersService();
+        if (isNetworkAvailable()){
+            linearLayoutNoInternet.setVisibility(View.GONE);
+            BeerService beerService = retrofit.create(BeerService.class);
+            Call<List<Beer>> call = beerService.recoveryBeersService();
 
-        call.enqueue(new Callback<List<Beer>>() {
-            @Override
-            public void onResponse(Call<List<Beer>> call, Response<List<Beer>> response) {
-                if (response.isSuccessful()) {
-                    beers = response.body();
-                    configRecyclerView();
+            call.enqueue(new Callback<List<Beer>>() {
+                @Override
+                public void onResponse(Call<List<Beer>> call, Response<List<Beer>> response) {
+                    if (response.isSuccessful()) {
+                        linearLayoutNoResults.setVisibility(View.GONE);
+                        recyclerBeers.setVisibility(View.VISIBLE);
+                        beers = response.body();
+                        configRecyclerView();
+
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<List<Beer>> call, Throwable t) {
+                @Override
+                public void onFailure(Call<List<Beer>> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }
+
+        else{
+            linearLayoutNoInternet.setVisibility(View.VISIBLE);
+            linearLayoutNoResults.setVisibility(View.GONE);
+            recyclerBeers.setVisibility(View.GONE);
+        }
+
     }
 
     private void recoveryBeersByName(String search) {
 
-        String searchName = search.replaceAll(" ", "_");
+        if (isNetworkAvailable()) {
+            linearLayoutNoInternet.setVisibility(View.GONE);
 
-        BeerService beerService = retrofit.create(BeerService.class);
-        Call<List<Beer>> call = beerService.recoveryBeersServiceByName(searchName);
+            String searchName = search.replaceAll(" ", "_");
 
-        call.enqueue(new Callback<List<Beer>>() {
-            @Override
-            public void onResponse(Call<List<Beer>> call, Response<List<Beer>> response) {
-                if (response.isSuccessful()) {
-                    beers = response.body();
-                    if (beers.size() > 0) {
-                        linearLayoutNoResults.setVisibility(View.GONE);
-                        recyclerBeers.setVisibility(View.VISIBLE);
-                        configRecyclerView();
-                    }
-                    else{
-                        Log.d("RecyclerViewTest", "configRecyclerView: " + "aqui1222333");
-                        linearLayoutNoResults.setVisibility(View.VISIBLE);
-                        recyclerBeers.setVisibility(View.GONE);
+            BeerService beerService = retrofit.create(BeerService.class);
+            Call<List<Beer>> call = beerService.recoveryBeersServiceByName(searchName);
+
+            call.enqueue(new Callback<List<Beer>>() {
+                @Override
+                public void onResponse(Call<List<Beer>> call, Response<List<Beer>> response) {
+                    if (response.isSuccessful()) {
+                        beers = response.body();
+                        if (beers.size() > 0) {
+                            linearLayoutNoResults.setVisibility(View.GONE);
+                            recyclerBeers.setVisibility(View.VISIBLE);
+                            configRecyclerView();
+                        } else {
+                            Log.d("RecyclerViewTest", "configRecyclerView: " + "aqui1222333");
+                            linearLayoutNoResults.setVisibility(View.VISIBLE);
+                            recyclerBeers.setVisibility(View.GONE);
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<List<Beer>> call, Throwable t) {
+                @Override
+                public void onFailure(Call<List<Beer>> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }
+        else{
+            linearLayoutNoInternet.setVisibility(View.VISIBLE);
+            linearLayoutNoResults.setVisibility(View.GONE);
+            recyclerBeers.setVisibility(View.GONE);
+        }
     }
 
     public void configRecyclerView() {
@@ -188,5 +214,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
