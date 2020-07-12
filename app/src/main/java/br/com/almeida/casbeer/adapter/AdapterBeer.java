@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -52,7 +53,7 @@ public class AdapterBeer extends RecyclerView.Adapter<AdapterBeer.MyViewHolder> 
         TextView name;
         TextView tag_line;
         ImageView image_url;
-        ImageView image_fav_beer;
+        Button image_fav_beer;
 
         public MyViewHolder(View itemView){
             super(itemView);
@@ -60,7 +61,7 @@ public class AdapterBeer extends RecyclerView.Adapter<AdapterBeer.MyViewHolder> 
             name = itemView.findViewById(R.id.textNameBeer);
             tag_line = itemView.findViewById(R.id.textTaglineBeer);
             image_url = itemView.findViewById(R.id.imageBeer);
-            image_fav_beer = itemView.findViewById(R.id.imageFavoriteBeer);
+            image_fav_beer = itemView.findViewById(R.id.btnFavoriteBeer);
         }
 
 

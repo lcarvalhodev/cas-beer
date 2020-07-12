@@ -16,6 +16,7 @@
             android:id="@+id/imageBeer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="0.8"
             app:srcCompat="@drawable/staron" />
 
@@ -23,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.51"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -38,12 +40,15 @@
                 android:text="TextView" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageFavoriteBeer"
+        <Button
+            android:id="@+id/btnFavoriteBeer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            app:srcCompat="@drawable/placeholder" />
+            android:background="@drawable/ic_star_grey_24"
+            android:foregroundGravity="center"
+            android:gravity="center" />
 
     </LinearLayout>
 
