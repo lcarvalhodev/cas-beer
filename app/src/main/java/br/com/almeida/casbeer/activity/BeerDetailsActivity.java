@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -28,25 +29,33 @@ public class BeerDetailsActivity extends AppCompatActivity {
 
         //recovery object beers
         Bundle data = getIntent().getExtras();
-        Beer beer = (Beer) data.getSerializable("beer");
 
-        //init components
-        imageBeerDetails = findViewById(R.id.imageBeerDetails);
-        textViewNameDetails = findViewById(R.id.textNameBeerDetails);
-        textViewTaglineDetails = findViewById(R.id.textTaglineBeerDetails);
-        textViewDescriptionDetails = findViewById(R.id.textViewDescriptionDetails);
+        if (data != null) {
+            Beer beer = (Beer) data.getSerializable("beer");
 
-        String url_image = beer.getImage_url();
-        Picasso.get().load(url_image).resize(200, 200).centerInside().into(imageBeerDetails);
+            //init components
+            imageBeerDetails = findViewById(R.id.imageBeerDetails);
+            textViewNameDetails = findViewById(R.id.textNameBeerDetails);
+            textViewTaglineDetails = findViewById(R.id.textTaglineBeerDetails);
+            textViewDescriptionDetails = findViewById(R.id.textViewDescriptionDetails);
 
-        textViewNameDetails.setText(beer.getName());
-        textViewTaglineDetails.setText(beer.getTagline());
-        textViewDescriptionDetails.setText(beer.getDescription());
+            String url_image = beer.getImage_url();
+            Picasso.get().load(url_image).resize(200, 200).centerInside().into(imageBeerDetails);
+
+            textViewNameDetails.setText(beer.getName());
+            textViewTaglineDetails.setText(beer.getTagline());
+            textViewDescriptionDetails.setText(beer.getDescription());
+        }
+
+        else{
+            Toast.makeText(this, "Connection problem", Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
     }
 
     @Override
-    public boolean onSupportNavigateUp(){
+    public boolean onSupportNavigateUp() {
         finish();
         return true;
     }

@@ -71,12 +71,14 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+                recoveryBeersByName(query);
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+                recoveryBeersByName(newText);
+                return true;
             }
         });
 
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSearchViewClosed() {
-
+                recoveryBeers();
             }
         });
     }
@@ -97,6 +99,29 @@ public class MainActivity extends AppCompatActivity {
 
         BeerService beerService = retrofit.create(BeerService.class);
         Call<List<Beer>> call = beerService.recoveryBeersService();
+
+        call.enqueue(new Callback<List<Beer>>() {
+            @Override
+            public void onResponse(Call<List<Beer>> call, Response<List<Beer>> response) {
+                if (response.isSuccessful()) {
+                    beers = response.body();
+                    configRecyclerView();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Beer>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void recoveryBeersByName(String search) {
+
+        String searchName = search.replaceAll(" ", "_");
+
+        BeerService beerService = retrofit.create(BeerService.class);
+        Call<List<Beer>> call = beerService.recoveryBeersServiceByName(searchName);
 
         call.enqueue(new Callback<List<Beer>>() {
             @Override
