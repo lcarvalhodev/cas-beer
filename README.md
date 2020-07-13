@@ -52,7 +52,7 @@ Alternatively see the GitHub documentation on [creating a pull request](https://
 
 Thanks to the following people who have contributed to this project:
 
-* [@lcarvalhodev](https://github.com/lcarbalhodev) 📖
+* [@lcarvalhodev](https://github.com/lcarvalhodev) 📖
 
 ## Contact
 
