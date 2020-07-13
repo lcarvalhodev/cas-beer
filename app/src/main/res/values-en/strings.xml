@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">casBeer</string>
+    <string name="logo_name">Logo Beer List</string>
+    <string name="tituloActionBarDetalhes">Beer Details</string>
+    <string name="tituloFavoritas">Favorites</string>
+    <string name="mensagemInternet">No internet connection</string>
+    <string name="mensagemRegistros">No results were found</string>
+    <string name="tituloPesquisa">Search</string>
+</resources>

@@ -1,4 +1,9 @@
 <resources>
-    <string name="app_name">casBeer</string>
-    <string name="logo_name">Logo Beer List</string>
+    <string name="app_name">Lista de Cervejas</string>
+    <string name="logo_name">Logo Lista de Cerveja</string>
+    <string name="tituloActionBarDetalhes">Detalhes da cerveja</string>
+    <string name="tituloFavoritas">Favoritas</string>
+    <string name="mensagemInternet">Sem conexão com a internet</string>
+    <string name="mensagemRegistros">Nenhum resultado encontrado</string>
+    <string name="tituloPesquisa">Pesquisar</string>
 </resources>

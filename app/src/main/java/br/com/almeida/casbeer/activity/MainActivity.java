@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Config Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Beer List");
+        toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
 
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
             @Override
             public void onSearchViewShown() {
-
+                searchView.setHint(getString(R.string.tituloPesquisa));
             }
 
             @Override

@@ -25,7 +25,7 @@ public class BeerDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beer_details);
-        getSupportActionBar().setTitle("Beer Details");
+        getSupportActionBar().setTitle(R.string.tituloActionBarDetalhes);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //recovery object beers

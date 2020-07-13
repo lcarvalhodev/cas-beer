@@ -37,7 +37,7 @@ public class FavoriteBeersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_beers);
-        getSupportActionBar().setTitle("Favorite Beers");
+        getSupportActionBar().setTitle(R.string.tituloFavoritas);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //init components
@@ -64,7 +64,6 @@ public class FavoriteBeersActivity extends AppCompatActivity {
         BeerDAO beerDAO = new BeerDAO(getApplicationContext());
         beers = beerDAO.list();
 
-        Log.d("tryyy", "recoveryBeers: " + beers.get(0).getName());
         adapterBeer = new AdapterBeer(beers, this);
         recyclerBeers.setHasFixedSize(true);
         recyclerBeers.setLayoutManager(new LinearLayoutManager(this));
@@ -76,7 +75,6 @@ public class FavoriteBeersActivity extends AppCompatActivity {
         BeerDAO beerDAO = new BeerDAO(getApplicationContext());
         beers = beerDAO.list();
 
-        Log.d("tryyy", "recoveryBeers: " + beers.get(0).getName());
         adapterBeer = new AdapterBeer(beers, this);
         recyclerBeers.setHasFixedSize(true);
         recyclerBeers.setLayoutManager(new LinearLayoutManager(this));
