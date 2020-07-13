@@ -222,8 +222,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
+    protected void onRestart() {
         recoveryBeers();
-        super.onStart();
+        super.onRestart();
     }
 }

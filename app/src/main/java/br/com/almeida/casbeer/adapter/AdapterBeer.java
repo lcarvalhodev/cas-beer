@@ -61,10 +61,9 @@ public class AdapterBeer extends RecyclerView.Adapter<AdapterBeer.MyViewHolder> 
         Beer beer = beers.get(position);
 
         for (int i = 0; i < favBeers.size(); i++) {
-            Beer beer1 = favBeers.get(i);
-            if (beer1.getName().equals(beer.getName())) {
+            Beer beerFav = favBeers.get(i);
+            if (beerFav.getName().equals(beer.getName())) {
                 holder.image_fav_beer.setBackgroundResource(R.drawable.ic_star_yellow_24);
-                alreadyFav = true;
             }
         }
 
@@ -78,34 +77,25 @@ public class AdapterBeer extends RecyclerView.Adapter<AdapterBeer.MyViewHolder> 
             @Override
             public void onClick(View view) {
 
+                alreadyFav = false;
                 favBeers = beerDAO.list();
 
-                if (favBeers.size() == 0)
-                    alreadyFav = false;
                 for (int i = 0; i < favBeers.size(); i++) {
                     Beer beer1 = favBeers.get(i);
                     if (beer1.getName().equals(beer.getName())) {
                         alreadyFav = true;
-                        Log.d("tryyy", "onClick: " + alreadyFav);
                     }
-                    else{
-                        Log.d("tryyy", "onClick: " + alreadyFav);
-                        alreadyFav = false;
-                    }
-
                 }
 
-                if (!alreadyFav) {
+                if (!alreadyFav) { // insert in fav list
                     BeerDAO beerDAO = new BeerDAO(context);
                     beerDAO.insert(beer);
-                    Log.d("tryyy", "onClick: " + "try to insert");
                     holder.image_fav_beer.setBackgroundResource(R.drawable.ic_star_yellow_24);
-                } else {
-                    //remove from favs
-                    Log.d("tryyy", "onClick: " + "try to remove");
+                } else { //remove from fav list
                     beerDAO.delete(beer);
                     holder.image_fav_beer.setBackgroundResource(R.drawable.ic_star_grey_24);
                 }
+                notifyDataSetChanged();
             }
         });
 
