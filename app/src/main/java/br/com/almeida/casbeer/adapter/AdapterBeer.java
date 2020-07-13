@@ -33,11 +33,15 @@ import static android.content.ContentValues.TAG;
 public class AdapterBeer extends RecyclerView.Adapter<AdapterBeer.MyViewHolder> {
 
     private List<Beer> beers = new ArrayList<>();
+    private List<Beer> favBeers = new ArrayList<>();
     private Context context;
+
+    boolean alreadyFav = false;
 
     public AdapterBeer(List<Beer> beers, Context context) {
         this.beers = beers;
         this.context = context;
+
     }
 
     @NonNull
@@ -50,7 +54,20 @@ public class AdapterBeer extends RecyclerView.Adapter<AdapterBeer.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
+        //recovery data from local database
+        BeerDAO beerDAO = new BeerDAO(context);
+        favBeers = beerDAO.list();
+
         Beer beer = beers.get(position);
+
+        for (int i = 0; i < favBeers.size(); i++) {
+            Beer beer1 = favBeers.get(i);
+            if (beer1.getName().equals(beer.getName())) {
+                holder.image_fav_beer.setBackgroundResource(R.drawable.ic_star_yellow_24);
+                alreadyFav = true;
+            }
+        }
+
         holder.name.setText(beer.getName());
         holder.tag_line.setText(beer.getTagline());
 
@@ -61,10 +78,34 @@ public class AdapterBeer extends RecyclerView.Adapter<AdapterBeer.MyViewHolder> 
             @Override
             public void onClick(View view) {
 
-                BeerDAO beerDAO = new BeerDAO(context);
-                beerDAO.insert(beer);
+                favBeers = beerDAO.list();
 
-                holder.image_fav_beer.setBackgroundResource(R.drawable.ic_star_yellow_24);
+                if (favBeers.size() == 0)
+                    alreadyFav = false;
+                for (int i = 0; i < favBeers.size(); i++) {
+                    Beer beer1 = favBeers.get(i);
+                    if (beer1.getName().equals(beer.getName())) {
+                        alreadyFav = true;
+                        Log.d("tryyy", "onClick: " + alreadyFav);
+                    }
+                    else{
+                        Log.d("tryyy", "onClick: " + alreadyFav);
+                        alreadyFav = false;
+                    }
+
+                }
+
+                if (!alreadyFav) {
+                    BeerDAO beerDAO = new BeerDAO(context);
+                    beerDAO.insert(beer);
+                    Log.d("tryyy", "onClick: " + "try to insert");
+                    holder.image_fav_beer.setBackgroundResource(R.drawable.ic_star_yellow_24);
+                } else {
+                    //remove from favs
+                    Log.d("tryyy", "onClick: " + "try to remove");
+                    beerDAO.delete(beer);
+                    holder.image_fav_beer.setBackgroundResource(R.drawable.ic_star_grey_24);
+                }
             }
         });
 
@@ -102,6 +143,7 @@ public class AdapterBeer extends RecyclerView.Adapter<AdapterBeer.MyViewHolder> 
         ImageView image_url;
         Button image_fav_beer;
         LinearLayout linearLayout;
+
 
         public MyViewHolder(View itemView) {
             super(itemView);

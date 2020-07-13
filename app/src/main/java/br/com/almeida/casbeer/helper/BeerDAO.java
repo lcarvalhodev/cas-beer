@@ -50,7 +50,17 @@ public class BeerDAO implements iBeerDAO {
 
     @Override
     public boolean delete(Beer beer) {
-        return false;
+
+        try {
+            String[] args = {beer.getName()};
+            write.delete(DBHelper.TABLE_BEERS, "name=?", args);
+            Log.i("INFODB", "Beer successfully removed!");
+        } catch (Exception e) {
+            Log.e("INFO", "Erro on remove beer: " + e.getMessage());
+            return false;
+        }
+
+        return true;
     }
 
     @Override
@@ -63,11 +73,11 @@ public class BeerDAO implements iBeerDAO {
         while (c.moveToNext()) {
             Beer beer = new Beer();
 
-            Long id = c.getLong( c.getColumnIndex("id"));
-            String name = c.getString( c.getColumnIndex("name"));
-            String tagline = c.getString( c.getColumnIndex("tagline"));
-            String description = c.getString( c.getColumnIndex("description"));
-            String image_url = c.getString( c.getColumnIndex("image_url"));
+            Long id = c.getLong(c.getColumnIndex("id"));
+            String name = c.getString(c.getColumnIndex("name"));
+            String tagline = c.getString(c.getColumnIndex("tagline"));
+            String description = c.getString(c.getColumnIndex("description"));
+            String image_url = c.getString(c.getColumnIndex("image_url"));
 
             beer.setId(id.toString());
             beer.setName(name);
