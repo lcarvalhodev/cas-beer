@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,55 +10,62 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="32dp"
-        android:layout_weight="0.8"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/imageBeerDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.8"
-            android:contentDescription="@string/imagemCerveja"
-            app:srcCompat="@drawable/staron" />
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.51"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_marginTop="32dp"
+            android:layout_weight="0.8"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textNameBeerDetails"
+            <ImageView
+                android:id="@+id/imageBeerDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/tagLineCerveja"
-                android:text="TextView"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                tools:text="@string/nomeCerveja" />
+                android:layout_gravity="center"
+                android:layout_weight="0.8"
+                android:contentDescription="@string/imagemCerveja"
+                app:srcCompat="@drawable/staron" />
 
-            <TextView
-                android:id="@+id/textTaglineBeerDetails"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/tagLineCerveja"
-                android:text="TextView"
-                tools:text="@string/tagLineCerveja" />
+                android:layout_height="match_parent"
+                android:layout_weight="0.51"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textNameBeerDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/tagLineCerveja"
+                    android:text="TextView"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="@string/nomeCerveja" />
+
+                <TextView
+                    android:id="@+id/textTaglineBeerDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/tagLineCerveja"
+                    android:text="TextView"
+                    tools:text="@string/tagLineCerveja" />
+            </LinearLayout>
+
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/textViewDescriptionDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_weight="0.8"
+            android:contentDescription="@string/descricaoCerveja"
+            android:gravity="start"
+            android:text="TextView"
+            tools:text="@string/descricaoCerveja" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViewDescriptionDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_weight="0.8"
-        android:contentDescription="@string/descricaoCerveja"
-        android:text="TextView"
-        tools:text="@string/descricaoCerveja" />
-
-</LinearLayout>
+</ScrollView>
