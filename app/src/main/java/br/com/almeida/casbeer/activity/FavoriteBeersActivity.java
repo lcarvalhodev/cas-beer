@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.squareup.picasso.Picasso;
 
@@ -30,6 +31,7 @@ public class FavoriteBeersActivity extends AppCompatActivity {
     private RecyclerView recyclerBeers;
     private List<Beer> beers = new ArrayList<>();
     private AdapterBeer adapterBeer;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,15 @@ public class FavoriteBeersActivity extends AppCompatActivity {
 
         //init components
         recyclerBeers = findViewById(R.id.recyclerFavoriteBeersId);
+        swipeRefreshLayout = findViewById(R.id.pullToRefresh);
+
+        //config pull to refresh
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                recoveryBeersRefresh();
+            }
+        });
 
         BeerDAO beerDAO = new BeerDAO(getApplicationContext());
         beers = beerDAO.list();
@@ -58,6 +69,20 @@ public class FavoriteBeersActivity extends AppCompatActivity {
         recyclerBeers.setHasFixedSize(true);
         recyclerBeers.setLayoutManager(new LinearLayoutManager(this));
         recyclerBeers.setAdapter(adapterBeer);
+    }
+
+    private void recoveryBeersRefresh() {
+
+        BeerDAO beerDAO = new BeerDAO(getApplicationContext());
+        beers = beerDAO.list();
+
+        Log.d("tryyy", "recoveryBeers: " + beers.get(0).getName());
+        adapterBeer = new AdapterBeer(beers, this);
+        recyclerBeers.setHasFixedSize(true);
+        recyclerBeers.setLayoutManager(new LinearLayoutManager(this));
+        recyclerBeers.setAdapter(adapterBeer);
+        adapterBeer.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
