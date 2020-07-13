@@ -5,5 +5,14 @@
     <string name="tituloFavoritas">Favoritas</string>
     <string name="mensagemInternet">Sem conexão com a internet</string>
     <string name="mensagemRegistros">Nenhum resultado encontrado</string>
-    <string name="tituloPesquisa">Pesquisar</string>
+    <string name="tituloPesquisa">Procurar</string>
+
+    <!--    Strings to contentDescription (Accessibility) -->
+    <string name="imagemCerveja">Imagem da Cerveja</string>
+    <string name="nomeCerveja">Nome da Cerveja</string>
+    <string name="descricaoCerveja">Descrição da Cerveja</string>
+    <string name="tagLineCerveja">Tagline da Cerveja</string>
+    <string name="feedbackInternet">Sem conexão com a internet</string>
+    <string name="feedbackResultado">Nenhum resultado encontrado</string>
+    <string name="btnFavoritas">Botão de favoritar cerveja</string>
 </resources>

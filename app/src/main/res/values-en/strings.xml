@@ -7,4 +7,11 @@
     <string name="mensagemInternet">No internet connection</string>
     <string name="mensagemRegistros">No results were found</string>
     <string name="tituloPesquisa">Search</string>
+    <string name="imagemCerveja">Beer image</string>
+    <string name="nomeCerveja">Beer name</string>
+    <string name="descricaoCerveja">Beer description</string>
+    <string name="tagLineCerveja">Beer tagline</string>
+    <string name="feedbackInternet">No internet connection</string>
+    <string name="feedbackResultado">No results were found</string>
+    <string name="btnFavoritas">Favorite Button</string>
 </resources>

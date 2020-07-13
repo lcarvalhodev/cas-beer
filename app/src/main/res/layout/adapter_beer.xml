@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.8"
+            android:contentDescription="@string/feedbackResultado"
             app:srcCompat="@drawable/staron" />
 
         <LinearLayout
@@ -33,15 +34,19 @@
                 android:id="@+id/textNameBeer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:contentDescription="@string/nomeCerveja"
+                android:text="@string/nomeCerveja"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="@string/nomeCerveja" />
 
             <TextView
                 android:id="@+id/textTaglineBeer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:contentDescription="@string/nomeCerveja"
+                android:text="@string/nomeCerveja"
+                tools:text="@string/nomeCerveja" />
         </LinearLayout>
 
         <Button
@@ -51,6 +56,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@drawable/ic_star_grey_24"
+            android:contentDescription="@string/btnFavoritas"
             android:foregroundGravity="center"
             android:gravity="center" />
 

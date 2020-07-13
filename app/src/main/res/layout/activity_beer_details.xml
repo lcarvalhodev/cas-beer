@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -19,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.8"
+            android:contentDescription="@string/imagemCerveja"
             app:srcCompat="@drawable/staron" />
 
         <LinearLayout
@@ -32,15 +34,19 @@
                 android:id="@+id/textNameBeerDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/tagLineCerveja"
                 android:text="TextView"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="@string/nomeCerveja" />
 
             <TextView
                 android:id="@+id/textTaglineBeerDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:contentDescription="@string/tagLineCerveja"
+                android:text="TextView"
+                tools:text="@string/tagLineCerveja" />
         </LinearLayout>
 
     </LinearLayout>
@@ -51,6 +57,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_weight="0.8"
-        android:text="TextView" />
+        android:contentDescription="@string/descricaoCerveja"
+        android:text="TextView"
+        tools:text="@string/descricaoCerveja" />
 
 </LinearLayout>
