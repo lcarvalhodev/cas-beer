@@ -72,7 +72,7 @@ public class AdapterBeer extends RecyclerView.Adapter<AdapterBeer.MyViewHolder> 
         holder.tag_line.setText(beer.getTagline());
 
         String url_image = beer.getImage_url();
-        Picasso.get().load(url_image).resize(200, 200).centerInside().into(holder.image_url);
+        Picasso.get().load(url_image).error(R.drawable.ic_baseline_broken_image_24).resize(200, 200).centerInside().into(holder.image_url);
 
         holder.image_fav_beer.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,6 +1,7 @@
 package br.com.almeida.casbeer.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -52,6 +53,7 @@ public class FavoriteBeersActivity extends AppCompatActivity {
         BeerDAO beerDAO = new BeerDAO(getApplicationContext());
         beers = beerDAO.list();
 
+        Log.d("tryyy", "recoveryBeers: " + beers.get(0).getName());
         adapterBeer = new AdapterBeer(beers, this);
         recyclerBeers.setHasFixedSize(true);
         recyclerBeers.setLayoutManager(new LinearLayoutManager(this));

@@ -3,6 +3,7 @@ package br.com.almeida.casbeer.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +20,6 @@ public class BeerDetailsActivity extends AppCompatActivity {
     private TextView textViewTaglineDetails;
     private TextView textViewDescriptionDetails;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +33,7 @@ public class BeerDetailsActivity extends AppCompatActivity {
         if (data != null) {
             Beer beer = (Beer) data.getSerializable("beer");
 
+            Log.d("tryyy", "recoveryBeers: " + beer.getName() + "s");
             //init components
             imageBeerDetails = findViewById(R.id.imageBeerDetails);
             textViewNameDetails = findViewById(R.id.textNameBeerDetails);
@@ -40,7 +41,7 @@ public class BeerDetailsActivity extends AppCompatActivity {
             textViewDescriptionDetails = findViewById(R.id.textViewDescriptionDetails);
 
             String url_image = beer.getImage_url();
-            Picasso.get().load(url_image).resize(200, 200).centerInside().into(imageBeerDetails);
+            Picasso.get().load(url_image).error(R.drawable.ic_baseline_broken_image_24).resize(280, 280).centerInside().into(imageBeerDetails);
 
             textViewNameDetails.setText(beer.getName());
             textViewTaglineDetails.setText(beer.getTagline());
