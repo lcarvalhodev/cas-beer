@@ -60,6 +60,7 @@ public class AdapterBeer extends RecyclerView.Adapter<AdapterBeer.MyViewHolder> 
 
         Beer beer = beers.get(position);
 
+        Log.d("TAGg", "onBindViewHolder: " + position);
         for (int i = 0; i < favBeers.size(); i++) {
             Beer beerFav = favBeers.get(i);
             if (beerFav.getName().equals(beer.getName())) {
@@ -83,6 +84,7 @@ public class AdapterBeer extends RecyclerView.Adapter<AdapterBeer.MyViewHolder> 
                 for (int i = 0; i < favBeers.size(); i++) {
                     Beer beer1 = favBeers.get(i);
                     if (beer1.getName().equals(beer.getName())) {
+                        Log.d("TAGg1", "onClick: " + "a1");
                         alreadyFav = true;
                     }
                 }
@@ -90,12 +92,13 @@ public class AdapterBeer extends RecyclerView.Adapter<AdapterBeer.MyViewHolder> 
                 if (!alreadyFav) { // insert in fav list
                     BeerDAO beerDAO = new BeerDAO(context);
                     beerDAO.insert(beer);
+                    Log.d("TAGg2", "onClick: " + "a2");
                     holder.image_fav_beer.setBackgroundResource(R.drawable.ic_star_yellow_24);
                 } else { //remove from fav list
                     beerDAO.delete(beer);
+                    Log.d("TAGg3", "onClick: " + "a3");
                     holder.image_fav_beer.setBackgroundResource(R.drawable.ic_star_grey_24);
                 }
-                notifyDataSetChanged();
             }
         });
 
